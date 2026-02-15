@@ -9,21 +9,90 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 <html lang="de">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.hero {
+				background: #010208;
+				color: #FFFFFF;
+				padding: 6rem 1.5rem 5rem;
+				text-align: center;
+			}
+			.hero-inner {
+				max-width: 720px;
+				margin: 0 auto;
+			}
+			.hero h1 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 800;
+				font-size: clamp(2rem, 5vw, 3.5rem);
+				color: #FFFFFF;
+				margin: 0 0 1rem 0;
+				line-height: 1.15;
+			}
+			.hero p {
+				font-family: "Source Sans 3", sans-serif;
+				font-weight: 400;
+				font-size: 1.15rem;
+				line-height: 1.6;
+				color: #FFFFFF;
+				margin: 0 0 1.5rem 0;
+			}
+			.hero .cta {
+				display: inline-block;
+				padding: 0.75rem 1.5rem;
+				background: #FFFFFF;
+				color: #010208;
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				text-decoration: none;
+				border: 2px solid #FFFFFF;
+				border-radius: 0;
+				transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+			}
+			.hero .cta:hover {
+				background: #010208;
+				color: #FFFFFF;
+				border-color: #FFFFFF;
+			}
+			.section-white {
+				background: #FFFFFF;
+				color: #010208;
+				padding: 4rem 1.5rem;
+			}
+			.section-white .main-inner {
+				max-width: 720px;
+				margin: 0 auto;
+			}
+			.section-white h2 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				color: #010208;
+			}
+			.section-white a {
+				color: #010208;
+				text-decoration: underline;
+			}
+			.section-white a:hover {
+				text-decoration: none;
+			}
+		</style>
 	</head>
 	<body>
 		<Header />
-		<main>
-			<h1>Ranknitro – SEO & GEO Agentur</h1>
-			<p>
-				{SITE_DESCRIPTION}
-			</p>
-			<p>
-				Unser Fokus: <strong>organisches Wachstum durch Content</strong>. Mit dem Ranknitro-Blog liefern wir dir regelmäßig praxisnahe Tipps zu SEO, Google Ads, lokaler Suche (GEO) und Suchmaschinen-Marketing – damit du schneller sichtbar wirst.
-			</p>
-			<p>
-				<a href="/blog/">Zum Blog</a> – aktuelle Artikel, Anleitungen und Strategien für bessere Rankings.
-			</p>
-		</main>
+		<section class="hero" data-nav-invert>
+			<div class="hero-inner">
+				<h1>Ranknitro – SEO & GEO Agentur</h1>
+				<p>{SITE_DESCRIPTION}</p>
+				<p>Unser Fokus: organisches Wachstum durch Content. Mit dem Ranknitro-Blog liefern wir dir regelmäßig praxisnahe Tipps zu SEO, Google Ads, lokaler Suche (GEO) und Suchmaschinen-Marketing.</p>
+				<a href="#geo-audit" class="cta">Free GEO Audit</a>
+			</div>
+		</section>
+		<section class="section-white">
+			<div class="main-inner">
+				<h2>Schneller sichtbar werden</h2>
+				<p><a href="/blog/">Zum Blog</a> – aktuelle Artikel, Anleitungen und Strategien für bessere Rankings.</p>
+				<p id="geo-audit">Kontaktiere uns für ein unverbindliches GEO-Audit und maßgeschneiderte SEO-Strategien.</p>
+			</div>
+		</section>
 		<Footer />
 	</body>
 </html>

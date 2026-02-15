@@ -1,47 +1,148 @@
 ---
-import { SITE_TITLE } from '../consts';
 import HeaderLink from './HeaderLink.astro';
 ---
 
-<header>
+<header class="site-header" id="site-header">
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		<a href="/" class="logo-link" aria-label="Ranknitro Startseite">
+			<img src="/logo.avif" alt="Ranknitro" class="logo logo-light" width="160" height="40" />
+			<img src="/logo-dark.avif" alt="Ranknitro" class="logo logo-dark" width="160" height="40" />
+		</a>
+		<div class="nav-links">
 			<HeaderLink href="/">Start</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">Über uns</HeaderLink>
 		</div>
+		<a href="#geo-audit" class="cta-btn">Free GEO Audit</a>
 	</nav>
 </header>
-<style>
-	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
+<script>
+	(function () {
+		const header = document.getElementById('site-header');
+		if (!header) return;
+		const invertSections = document.querySelectorAll('[data-nav-invert]');
+		if (!invertSections.length) return;
+		const navHeight = 80;
+
+		function checkInvert() {
+			let overBlack = false;
+			invertSections.forEach((el) => {
+				const rect = el.getBoundingClientRect();
+				if (rect.top < navHeight && rect.bottom > 0) overBlack = true;
+			});
+			header.classList.toggle('nav-inverted', overBlack);
+		}
+		window.addEventListener('scroll', checkInvert, { passive: true });
+		window.addEventListener('resize', checkInvert);
+		checkInvert();
+	})();
+</script>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		background: #FFFFFF;
+		border-bottom: 1px solid #000000;
+		transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 	}
-	nav {
+	.site-header.nav-inverted {
+		background: #010208;
+		border-bottom-color: #FFFFFF;
+	}
+	.site-header nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0.75rem 1.5rem;
+		gap: 1rem;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
+	.logo-link {
+		display: flex;
+		align-items: center;
 		text-decoration: none;
+		border: none;
 	}
-	nav a.active {
+	.logo {
+		height: 36px;
+		width: auto;
+		object-fit: contain;
+		display: block;
+	}
+	.logo-dark {
+		display: none;
+	}
+	.nav-inverted .logo-light {
+		display: none;
+	}
+	.nav-inverted .logo-dark {
+		display: block;
+	}
+	.nav-links {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+	.nav-links a {
+		padding: 0.5rem 0.75rem;
+		font-family: "Montserrat", sans-serif;
+		font-weight: 700;
+		font-size: 0.9rem;
+		color: #010208;
 		text-decoration: none;
-		border-bottom-color: var(--accent);
+		border: 2px solid transparent;
+	}
+	.nav-links a:hover,
+	.nav-links a.active {
+		text-decoration: underline;
+	}
+	.site-header.nav-inverted .nav-links a {
+		color: #FFFFFF;
+	}
+	.cta-btn {
+		display: inline-block;
+		padding: 0.6rem 1.25rem;
+		background: #FFFFFF;
+		color: #010208;
+		font-family: "Montserrat", sans-serif;
+		font-weight: 700;
+		font-size: 0.9rem;
+		text-decoration: none;
+		border: 2px solid #010208;
+		border-radius: 0;
+		transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+	}
+	.cta-btn:hover {
+		background: #010208;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+	}
+	.site-header.nav-inverted .cta-btn {
+		background: #FFFFFF;
+		color: #010208;
+		border-color: #FFFFFF;
+	}
+	.site-header.nav-inverted .cta-btn:hover {
+		background: #010208;
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+	}
+	@media (max-width: 720px) {
+		.site-header nav {
+			flex-wrap: wrap;
+			padding: 0.5rem 1rem;
+		}
+		.nav-links {
+			order: 3;
+			width: 100%;
+			justify-content: flex-start;
+		}
+		.cta-btn {
+			margin-left: auto;
+		}
 	}
 </style>

@@ -17,99 +17,113 @@ const posts = (await getCollection('blog')).sort(
 	<head>
 		<BaseHead title={`Blog – ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 		<style>
-			main {
-				width: 960px;
+			body { background: #FFFFFF; }
+			.blog-page main {
+				background: #FFFFFF;
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 3rem 1.5rem;
 			}
-			ul {
+			.blog-page .intro h1 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				color: #010208;
+			}
+			.blog-page .intro p {
+				font-family: "Source Sans 3", sans-serif;
+				line-height: 1.6;
+				color: #010208;
+			}
+			.blog-grid {
 				display: flex;
 				flex-wrap: wrap;
 				gap: 2rem;
-				list-style-type: none;
+				list-style: none;
 				margin: 0;
 				padding: 0;
 			}
-			ul li {
+			.blog-grid li {
 				width: calc(50% - 1rem);
 			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
+			.blog-grid li:first-child {
 				width: 100%;
 			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
+			.blog-card {
 				display: block;
+				text-decoration: none;
+				background: #FFFFFF;
+				border: 1px solid #000000;
+				border-radius: 0;
+				overflow: hidden;
+				transition: border-color 0.2s ease, background 0.2s ease;
 			}
-			.title {
+			.blog-card:hover {
+				border-color: #010208;
+				background: #F8F9FA;
+			}
+			.blog-card img {
+				width: 100%;
+				height: auto;
+				display: block;
+				border-radius: 0;
+				border-bottom: 1px solid #000000;
+			}
+			.blog-card .card-content {
+				padding: 1rem 1.25rem;
+			}
+			.blog-card .title {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 1.25rem;
+				margin: 0 0 0.25rem 0;
+				color: #010208;
+				line-height: 1.2;
+			}
+			.blog-card .date {
+				font-family: "Source Sans 3", sans-serif;
+				font-size: 0.9rem;
+				line-height: 1.6;
+				color: #010208;
+				opacity: 0.8;
 				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
 			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
+			.blog-card:hover .title,
+			.blog-card:hover .date {
+				color: #010208;
 			}
 			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
+				.blog-grid li {
 					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
 				}
 			}
 		</style>
 	</head>
-	<body>
+	<body class="blog-page">
 		<Header />
 		<main>
-			<section>
+			<section class="intro">
 				<h1>Blog</h1>
 				<p>SEO, GEO und Suchmaschinen-Marketing – Tipps und Strategien für bessere Rankings.</p>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
+			</section>
+			<ul class="blog-grid">
+				{
+					posts.map((post) => (
+						<li>
+							<a href={`/blog/${post.id}/`} class="blog-card">
+								{post.data.heroImage && (
+									<Image width={720} height={360} src={post.data.heroImage} alt="" />
+								)}
+								<div class="card-content">
+									<h2 class="title">{post.data.title}</h2>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
 									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+								</div>
+							</a>
+						</li>
+					))
+				}
+			</ul>
 		</main>
 		<Footer />
 	</body>

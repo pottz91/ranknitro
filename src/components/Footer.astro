@@ -2,7 +2,7 @@
 const today = new Date();
 ---
 
-<footer>
+<footer class="site-footer">
 	<p>&copy; {today.getFullYear()} Ranknitro – SEO & GEO Agentur.</p>
 	<nav class="legal-links">
 		<a href="/impressum/">Impressum</a>
@@ -11,27 +11,32 @@ const today = new Date();
 	</nav>
 </footer>
 <style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
+	.site-footer {
+		padding: 2rem 1.5rem 4rem;
+		background: #FFFFFF;
+		color: #010208;
 		text-align: center;
+		border-top: 1px solid #000000;
 	}
-	footer p {
-		margin: 0 0 0.5em 0;
+	.site-footer p {
+		margin: 0 0 0.5rem 0;
+		font-family: "Source Sans 3", sans-serif;
+		font-size: 0.95rem;
 	}
 	.legal-links {
 		display: flex;
 		justify-content: center;
-		gap: 1em;
+		gap: 1.5rem;
 		flex-wrap: wrap;
 	}
 	.legal-links a {
-		color: rgb(var(--gray));
-		text-decoration: none;
+		color: #010208;
+		text-decoration: underline;
+		font-family: "Montserrat", sans-serif;
+		font-weight: 700;
+		font-size: 0.9rem;
 	}
 	.legal-links a:hover {
-		color: rgb(var(--gray-dark));
-		text-decoration: underline;
+		text-decoration: none;
 	}
 </style>
