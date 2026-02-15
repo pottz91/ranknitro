@@ -1,0 +1,52 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead
+			title={`Impressum – ${SITE_TITLE}`}
+			description="Impressum und Angaben gemäß § 5 TMG / Art. 5 RStV."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Impressum</h1>
+			<p>Angaben gemäß § 5 TMG und Art. 5 RStV.</p>
+
+			<h2>Anbieter</h2>
+			<p>
+				[Firma / Name]<br />
+				[Straße und Hausnummer]<br />
+				[PLZ und Ort]
+			</p>
+
+			<h2>Kontakt</h2>
+			<p>
+				E-Mail: [E-Mail-Adresse]<br />
+				[Optional: Telefon]
+			</p>
+
+			<h2>Umsatzsteuer-ID</h2>
+			<p>[USt-IdNr., falls vorhanden]</p>
+
+			<h2>Handelsregister</h2>
+			<p>[Registergericht und Registernummer, falls eingetragen]</p>
+
+			<h2>Verantwortlich für den Inhalt</h2>
+			<p>[Name und Anschrift des Verantwortlichen nach § 55 Abs. 2 RStV]</p>
+
+			<h2>EU-Streitschlichtung</h2>
+			<p>
+				Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+				<a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>

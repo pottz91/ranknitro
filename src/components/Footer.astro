@@ -1,0 +1,37 @@
+---
+const today = new Date();
+---
+
+<footer>
+	<p>&copy; {today.getFullYear()} Ranknitro – SEO & GEO Agentur.</p>
+	<nav class="legal-links">
+		<a href="/impressum/">Impressum</a>
+		<a href="/datenschutz/">Datenschutz</a>
+		<a href="/agb/">AGB</a>
+	</nav>
+</footer>
+<style>
+	footer {
+		padding: 2em 1em 6em 1em;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+	footer p {
+		margin: 0 0 0.5em 0;
+	}
+	.legal-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+	.legal-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+	}
+	.legal-links a:hover {
+		color: rgb(var(--gray-dark));
+		text-decoration: underline;
+	}
+</style>

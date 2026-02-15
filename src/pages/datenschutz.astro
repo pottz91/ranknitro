@@ -1,0 +1,58 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead
+			title={`Datenschutz – ${SITE_TITLE}`}
+			description="Datenschutzerklärung – Informationen zur Verarbeitung personenbezogener Daten."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Datenschutzerklärung</h1>
+
+			<h2>1. Verantwortlicher</h2>
+			<p>
+				[Name/Anschrift des Verantwortlichen – wie im Impressum]
+			</p>
+
+			<h2>2. Erhebung und Speicherung personenbezogener Daten</h2>
+			<p>
+				Beim Aufruf dieser Website werden durch den Browser automatisch Zugriffsdaten (u. a. IP-Adresse, Datum, Uhrzeit, aufgerufene Seite) in Server-Logfiles erfasst. Diese Daten sind für den Betrieb der Seite erforderlich und werden [nach [Zeitraum] gelöscht / nicht mit personenbezogenen Daten zusammengeführt].
+			</p>
+
+			<h2>3. Zweck und Rechtsgrundlage</h2>
+			<p>
+				Die Verarbeitung erfolgt zur Bereitstellung der Website (Art. 6 Abs. 1 lit. b bzw. lit. f DSGVO). Soweit Sie uns z. B. per E-Mail oder Kontaktformular ansprechen, verarbeiten wir Ihre Angaben zur Bearbeitung der Anfrage (Art. 6 Abs. 1 lit. b DSGVO).
+			</p>
+
+			<h2>4. Cookies</h2>
+			<p>
+				Diese Website setzt [keine Cookies / nur technisch notwendige Cookies / Cookies wie folgt ein: …]. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert werden oder diese ablehnen.
+			</p>
+
+			<h2>5. Speicherdauer</h2>
+			<p>
+				Personenbezogene Daten werden nur so lange gespeichert, wie es für den genannten Zweck nötig ist oder gesetzliche Aufbewahrungsfristen bestehen.
+			</p>
+
+			<h2>6. Ihre Rechte</h2>
+			<p>
+				Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, sich bei einer Aufsichtsbehörde zu beschweren.
+			</p>
+
+			<h2>7. Hosting</h2>
+			<p>
+				[Falls gehostet bei einem Drittanbieter: Name des Anbieters, Sitz, ggf. Hinweis auf Auftragsverarbeitung und Link zur Datenschutzerklärung des Hosters.]
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>

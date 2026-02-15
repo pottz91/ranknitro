@@ -1,0 +1,29 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Ranknitro – SEO & GEO Agentur</h1>
+			<p>
+				{SITE_DESCRIPTION}
+			</p>
+			<p>
+				Unser Fokus: <strong>organisches Wachstum durch Content</strong>. Mit dem Ranknitro-Blog liefern wir dir regelmäßig praxisnahe Tipps zu SEO, Google Ads, lokaler Suche (GEO) und Suchmaschinen-Marketing – damit du schneller sichtbar wirst.
+			</p>
+			<p>
+				<a href="/blog/">Zum Blog</a> – aktuelle Artikel, Anleitungen und Strategien für bessere Rankings.
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
