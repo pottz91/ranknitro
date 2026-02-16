@@ -74,11 +74,16 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 ></script>
 
 <!-- Consent-Logging: Einwilligungsnachweis – per Event ODER Cookie-Polling (Fallback) -->
-<script define:vars={{ consentLogUrl: CONSENT_LOG_URL }}>
-	if (typeof window !== 'undefined') {
-		var consentLogEndpoint = (typeof consentLogUrl === 'string' && consentLogUrl.length > 0)
-			? consentLogUrl
-			: '/.netlify/functions/consent-log';
+<script data-consent-log-url={CONSENT_LOG_URL || ''}>
+	(function() {
+		var consentLogEndpoint = (function() {
+			try {
+				var s = document.currentScript;
+				var url = s && s.getAttribute('data-consent-log-url');
+				if (typeof url === 'string' && url.length > 0) return url;
+			} catch (e) {}
+			return '/.netlify/functions/consent-log';
+		})();
 		var allCats = ['necessary','analytics','marketing','externe-dienste','session-analyse'];
 		var sentIds = {};
 		function sendPayload(payload) {
@@ -153,8 +158,7 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 				if (n >= 20) clearInterval(t);
 			}, 1000);
 		});
-	}
-	function getConsentIdFromCookie() {
+		function getConsentIdFromCookie() {
 		try {
 			var cc = window.CookieConsent;
 			if (cc && cc.getCookie) {
@@ -209,4 +213,5 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 			obs.disconnect();
 		}, 3000);
 	}
+	})();
 </script>
