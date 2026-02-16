@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Markdown und SQL (entfernen, wenn du README/docs im Repo behalten willst)
+*.md
+*.sql

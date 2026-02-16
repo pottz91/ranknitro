@@ -14,6 +14,7 @@ export default defineConfig({
 		cookieconsent({
 			mode: 'opt-in',
 			hideFromBots: true,
+			disablePageInteraction: true,
 			cookie: {
 				name: 'cc_ranknitro',
 				expiresAfterDays: 182,
@@ -25,6 +26,15 @@ export default defineConfig({
 				analytics: {
 					enabled: false,
 				},
+				marketing: {
+					enabled: false,
+				},
+				'externe-dienste': {
+					enabled: false,
+				},
+				'session-analyse': {
+					enabled: false,
+				},
 			},
 			language: {
 				default: 'de',
@@ -33,7 +43,7 @@ export default defineConfig({
 						consentModal: {
 							title: 'Cookie-Einstellungen',
 							description:
-								'Wir verwenden Cookies, um die Nutzung der Website zu erleichtern und die Reichweite zu messen. Sie können alle Cookies akzeptieren oder nur die technisch notwendigen.',
+								'Wir verwenden technisch notwendige Cookies. Analyse- und Statistik-Cookies setzen wir nur mit Ihrer Einwilligung.',
 							acceptAllBtn: 'Alle akzeptieren',
 							acceptNecessaryBtn: 'Nur notwendige',
 							showPreferencesBtn: 'Einstellungen',
@@ -49,14 +59,32 @@ export default defineConfig({
 								{
 									title: 'Notwendige Cookies',
 									description:
-										'Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden.',
+										'Immer aktiv. Diese Cookies sind für den Betrieb der Website technisch erforderlich und können nicht deaktiviert werden. Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TDDDG i. V. m. Art. 6 Abs. 1 lit. f DSGVO.',
 									linkedCategory: 'necessary',
 								},
 								{
-									title: 'Analyse-Cookies',
+									title: 'Analyse',
 									description:
-										'Diese Cookies helfen uns zu verstehen, wie Besucher die Website nutzen (z. B. Statistiken). Sie werden nur mit Ihrer Zustimmung gesetzt.',
+										'Statistik-Cookies helfen uns zu verstehen, wie Besucher die Website nutzen. Sie werden nur mit Ihrer Einwilligung gesetzt. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
 									linkedCategory: 'analytics',
+								},
+								{
+									title: 'Marketing',
+									description:
+										'Marketing-Cookies werden nur mit Ihrer Einwilligung gesetzt und können für zielgruppenspezifische Anzeigen genutzt werden. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
+									linkedCategory: 'marketing',
+								},
+								{
+									title: 'Externe Dienste',
+									description:
+										'Inhalte oder Funktionen von Drittanbietern (z. B. Karten, Videos) werden nur mit Ihrer Einwilligung geladen. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
+									linkedCategory: 'externe-dienste',
+								},
+								{
+									title: 'Session-Analyse',
+									description:
+										'Besonders eingriffsintensiv: z. B. Aufzeichnung von Sitzungen, Heatmaps, Verhaltensanalyse. Nur mit Ihrer ausdrücklichen Einwilligung. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
+									linkedCategory: 'session-analyse',
 								},
 							],
 						},
@@ -66,7 +94,7 @@ export default defineConfig({
 			guiOptions: {
 				consentModal: {
 					layout: 'cloud',
-					position: 'bottom center',
+					position: 'middle center',
 					equalWeightButtons: true,
 					flipButtons: false,
 				},

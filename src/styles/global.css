@@ -118,3 +118,9 @@ hr {
 	clip-path: inset(50%);
 	white-space: nowrap;
 }
+
+/* Cookie-Consent: Hintergrund verdunkeln + bluren wenn Banner zentriert */
+.disable--interaction #cc-main .cm-wrapper::before {
+	backdrop-filter: blur(6px);
+	-webkit-backdrop-filter: blur(6px);
+}

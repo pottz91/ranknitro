@@ -4,7 +4,7 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, CONSENT_LOG_URL } from '../consts';
 
 interface Props {
 	title: string;
@@ -64,3 +64,44 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.site)} />
+
+<!-- Rybitt/Adnitro Tracking (nur nach Einwilligung „Analyse“) – VPS Hostinger EU, keine Cookies, User-ID-Salting -->
+<script
+	src="https://tracking.adnitro.de/api/script.js"
+	data-site-id="555f06ef800a"
+	data-category="analytics"
+	defer
+></script>
+
+<!-- Consent-Logging: Einwilligungsnachweis (Consent-ID + Zeitstempel) an Backend senden -->
+<script define:vars={{ consentLogUrl: CONSENT_LOG_URL }}>
+	if (typeof consentLogUrl === 'string' && consentLogUrl.length > 0 && typeof window !== 'undefined') {
+		function logConsent() {
+			try {
+				const cc = window.CookieConsent;
+				if (!cc || !cc.getCookie || !cc.getUserPreferences) return;
+				const cookie = cc.getCookie();
+				const prefs = cc.getUserPreferences();
+				const payload = {
+					consentId: cookie.consentId,
+					consentTimestamp: cookie.consentTimestamp,
+					lastConsentTimestamp: cookie.lastConsentTimestamp,
+					acceptType: prefs.acceptType,
+					acceptedCategories: prefs.acceptedCategories,
+					rejectedCategories: prefs.rejectedCategories,
+					languageCode: cookie.languageCode || 'de',
+					revision: cookie.revision,
+					url: window.location.href,
+				};
+				fetch(consentLogUrl, {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(payload),
+					keepalive: true,
+				}).catch(() => {});
+			} catch (e) {}
+		}
+		document.addEventListener('cc:onFirstConsent', logConsent);
+		document.addEventListener('cc:onChange', logConsent);
+	}
+</script>

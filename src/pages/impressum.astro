@@ -14,6 +14,11 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 	{ name: 'Start', url: '/' },
 	{ name: 'Impressum', url: '/impressum/' },
 ]);
+
+// Kontaktdaten nur per JS einblenden (gegen Crawler/Spam) – Base64 bei Build
+const emailB64 = Buffer.from('info@christopher-potthast.de', 'utf8').toString('base64');
+const telDisplayB64 = Buffer.from('+49 176 47624350', 'utf8').toString('base64');
+const telHrefB64 = Buffer.from('+4917647624350', 'utf8').toString('base64');
 ---
 
 <!doctype html>
@@ -43,9 +48,8 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 			</p>
 
 			<h2>Kontakt</h2>
-			<p>
-				Telefon: <a href="tel:+4917647624350">+49 176 47624350</a><br />
-				E-Mail: <a href="mailto:info@christopher-potthast.de">info@christopher-potthast.de</a>
+			<p id="impressum-contact" data-email={emailB64} data-tel-display={telDisplayB64} data-tel-href={telHrefB64}>
+				<noscript>Bitte JavaScript aktivieren, um Telefon und E-Mail anzuzeigen.</noscript>
 			</p>
 
 			<h2>Umsatzsteuer</h2>
@@ -65,5 +69,17 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 			</p>
 		</main>
 		<Footer />
+		<script is:inline>
+			(function () {
+				var el = document.getElementById('impressum-contact');
+				if (!el || !el.dataset.email) return;
+				try {
+					var email = atob(el.dataset.email);
+					var telDisplay = atob(el.dataset.telDisplay);
+					var telHref = atob(el.dataset.telHref);
+					el.innerHTML = 'Telefon: <a href="tel:' + telHref + '">' + telDisplay + '</a><br>E-Mail: <a href="mailto:' + email + '">' + email + '</a>';
+				} catch (e) {}
+			})();
+		</script>
 	</body>
 </html>
