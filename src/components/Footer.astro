@@ -37,11 +37,13 @@ const year = new Date().getFullYear();
 <script is:inline>
 	document.getElementById('footer-cookie-settings')?.addEventListener('click', function(e) {
 		e.preventDefault();
-		try {
-			if (typeof window !== 'undefined' && window.CookieConsent && typeof window.CookieConsent.showPreferences === 'function') {
-				window.CookieConsent.showPreferences();
-			}
-		} catch (err) {}
+		setTimeout(function() {
+			try {
+				if (window.CookieConsent && typeof window.CookieConsent.showPreferences === 'function') {
+					window.CookieConsent.showPreferences();
+				}
+			} catch (err) {}
+		}, 0);
 	});
 </script>
 
