@@ -1,0 +1,193 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE, SITE_URL } from '../consts';
+import { breadcrumbListSchema, webPageSchema } from '../utils/schema';
+
+const title = '47-Punkt SEO-Checkliste – kostenlos in Google Tabellen';
+const description =
+	'Die 47 wichtigsten Checkpunkte für Technisches SEO, On-Page, Content & GEO, Local SEO und Monitoring. Kostenlose Checkliste in Google Tabellen zum Ausfüllen.';
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const pageUrl = new URL('/seo-checkliste/', siteUrl).href;
+const webPageJsonLd = webPageSchema(siteUrl, pageUrl, `47-Punkt SEO-Checkliste – ${SITE_TITLE}`, description);
+const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
+	{ name: 'Start', url: '/' },
+	{ name: 'SEO-Checkliste', url: '/seo-checkliste/' },
+]);
+const checklistUrl = 'https://docs.google.com/spreadsheets/d/10TP1tNT6HrU-nfxzwgXF-tZTHU3AgLWZibhvugSh-dU/edit?usp=sharing';
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead title={`47-Punkt SEO-Checkliste – ${SITE_TITLE}`} description={description} />
+		<script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+		<style>
+			.seo-page {
+				background: #FFFFFF;
+				color: #010208;
+				position: relative;
+				min-height: 100vh;
+				overflow-x: hidden;
+			}
+			.seo-page::before {
+				content: '';
+				position: fixed;
+				inset: 0;
+				background: url('/geo-bg.png') center center / cover no-repeat;
+				opacity: 0.05;
+				pointer-events: none;
+				z-index: 0;
+			}
+			.seo-page main {
+				position: relative;
+				z-index: 1;
+				max-width: 820px;
+				margin: 0 auto;
+				padding: 2rem 1.5rem 4rem;
+				box-sizing: border-box;
+			}
+			.seo-headline-block {
+				text-align: center;
+				margin-bottom: 2rem;
+			}
+			.seo-subtitle {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 0.75rem;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+				color: #010208;
+				opacity: 0.7;
+				margin: 0 0 0.5rem 0;
+			}
+			.seo-page h1 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 800;
+				font-size: clamp(1.15rem, 3vw, 1.6rem);
+				line-height: 1.3;
+				margin: 0 0 0.75rem 0;
+			}
+			.seo-page .seo-subheadline {
+				font-family: "Source Sans 3", sans-serif;
+				font-size: 1rem;
+				line-height: 1.6;
+				margin: 0 auto;
+				max-width: 640px;
+			}
+			.seo-matrix-box {
+				background: #FFFFFF;
+				padding: 0;
+				margin: 0 0 2rem 0;
+				text-align: center;
+				box-shadow: 0 4px 20px rgba(1, 2, 8, 0.12), 0 8px 40px rgba(1, 2, 8, 0.08);
+				border-radius: 8px;
+				overflow: hidden;
+			}
+			.seo-matrix-image {
+				display: block;
+				width: 100%;
+				height: auto;
+				border-radius: 0;
+			}
+			.seo-cta-wrap { text-align: center; margin: 2rem 0 0.5rem 0; }
+			.seo-cta {
+				display: inline-block;
+				padding: 1rem 2rem;
+				background: #EA580C;
+				color: #FFFFFF;
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 1rem;
+				text-decoration: none;
+				border: 2px solid #EA580C;
+				border-radius: 0;
+				box-shadow: 0 2px 12px rgba(234, 88, 12, 0.35);
+				transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+			}
+			.seo-cta:hover {
+				background: #FFFFFF;
+				color: #EA580C;
+				border-color: #EA580C;
+				box-shadow: 0 2px 12px rgba(234, 88, 12, 0.2);
+			}
+			.seo-disclaimer {
+				font-family: "Source Sans 3", sans-serif;
+				font-size: 0.8rem;
+				color: #010208;
+				opacity: 0.8;
+				text-align: center;
+				margin: 0;
+			}
+			@media (max-width: 720px) {
+				.seo-page main {
+					padding: 1.25rem 1rem 2.5rem;
+					max-width: 100%;
+				}
+				.seo-headline-block {
+					margin-bottom: 1.5rem;
+				}
+				.seo-subtitle {
+					font-size: 0.7rem;
+				}
+				.seo-page h1 {
+					font-size: clamp(1rem, 4.5vw, 1.35rem);
+					line-height: 1.35;
+				}
+				.seo-page .seo-subheadline {
+					font-size: 0.9rem;
+					padding: 0 0.25rem;
+				}
+				.seo-matrix-box {
+					margin: 0 0 1.5rem 0;
+					border-radius: 6px;
+				}
+				.seo-matrix-image {
+					width: 100%;
+					height: auto;
+				}
+				.seo-cta-wrap {
+					margin: 1.5rem 0 0.5rem 0;
+				}
+				.seo-cta {
+					display: block;
+					width: 100%;
+					max-width: 320px;
+					margin: 0 auto;
+					padding: 1rem 1.5rem;
+					min-height: 48px;
+					text-align: center;
+					box-sizing: border-box;
+				}
+			}
+		</style>
+	</head>
+	<body class="seo-page">
+		<main>
+			<div class="seo-headline-block">
+				<p class="seo-subtitle">Kostenlose Ressource</p>
+				<h1>
+					47-Punkt SEO-Checkliste: Technisches SEO, On-Page, Off-Page, Content, Conversion & Monitoring
+				</h1>
+				<p class="seo-subheadline">
+					Alle wichtigen Checkpunkte in einer übersichtlichen Liste – von SSL und Core Web Vitals über Title Tags und interne Verlinkung bis zu Content & GEO, Local SEO und Monitoring. <strong>Kostenlos in Google Tabellen</strong> zum Ausfüllen und Abhaken.
+				</p>
+			</div>
+
+			<div class="seo-matrix-box">
+				<img
+					src="/seocheckliste.webp"
+					alt="47-Punkt SEO-Checkliste – Übersicht Technisches SEO und On-Page SEO"
+					class="seo-matrix-image"
+					width="800"
+					height="450"
+				/>
+			</div>
+
+			<div class="seo-cta-wrap">
+				<a href={checklistUrl} class="seo-cta" target="_blank" rel="noopener noreferrer">Checkliste öffnen (Google Tabellen)</a>
+			</div>
+			<p class="seo-disclaimer">Öffnet die 47-Punkte SEO-Checkliste in Google Tabellen. Du kannst sie kopieren und für dein Projekt nutzen.</p>
+		</main>
+	</body>
+</html>

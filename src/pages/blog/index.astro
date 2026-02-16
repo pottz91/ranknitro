@@ -211,12 +211,21 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 			<ul class="blog-grid">
 				{
 					posts.map((post) => {
-						const href = `/blog/${post.data.slug ?? post.id}/`;
+						const slug = post.data.slug ?? post.id;
+						const href = `/blog/${slug}/`;
 						return (
 						<li>
 							<a href={href} class="blog-card">
-								{post.data.heroImage && (
+								{post.data.heroImage ? (
 									<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />
+								) : (
+									<img
+										src={`/og/blog/${slug}.png`}
+										alt=""
+										width={720}
+										height={360}
+										loading="lazy"
+									/>
 								)}
 								<div class="card-content">
 									<h2 class="title">{post.data.title}</h2>

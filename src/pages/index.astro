@@ -90,6 +90,65 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [{ name: 'Start', url: '/
 			.section-white a:hover {
 				text-decoration: none;
 			}
+			.section-resources {
+				background: #F5F5F5;
+				color: #010208;
+				padding: 4rem 1.5rem;
+			}
+			.resources-inner {
+				max-width: 720px;
+				margin: 0 auto;
+			}
+			.section-resources h2 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				color: #010208;
+				margin: 0 0 1.5rem 0;
+			}
+			.resource-cards {
+				display: grid;
+				gap: 1.25rem;
+				grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			}
+			.resource-card {
+				display: block;
+				background: #FFFFFF;
+				color: #010208;
+				text-decoration: none;
+				padding: 1.5rem;
+				border-radius: 8px;
+				box-shadow: 0 2px 12px rgba(1, 2, 8, 0.08);
+				border: 1px solid rgba(1, 2, 8, 0.06);
+				transition: box-shadow 0.2s, border-color 0.2s;
+			}
+			.resource-card:hover {
+				box-shadow: 0 4px 20px rgba(1, 2, 8, 0.12);
+				border-color: rgba(234, 88, 12, 0.3);
+			}
+			.resource-card h3 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 1.1rem;
+				margin: 0 0 0.5rem 0;
+			}
+			.resource-card p {
+				font-family: "Source Sans 3", sans-serif;
+				font-size: 0.95rem;
+				line-height: 1.5;
+				margin: 0;
+				color: #010208;
+				opacity: 0.9;
+			}
+			.resource-card-img {
+				display: block;
+				width: 100%;
+				max-height: 180px;
+				object-fit: contain;
+				object-position: top center;
+				border-radius: 6px;
+				margin-bottom: 1rem;
+				background: #F5F5F5;
+			}
 		</style>
 	</head>
 	<body>
@@ -100,6 +159,23 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [{ name: 'Start', url: '/
 				<p>{SITE_DESCRIPTION}</p>
 				<p>Unser Fokus: organisches Wachstum durch Content. Mit dem Ranknitro-Blog liefern wir dir regelmäßig praxisnahe Tipps zu SEO, Google Ads, lokaler Suche (GEO) und Suchmaschinen-Marketing.</p>
 				<a href="#geo-audit" class="cta">Free GEO Audit</a>
+			</div>
+		</section>
+		<section class="section-resources">
+			<div class="resources-inner">
+				<h2>Ressourcen zum Download</h2>
+				<div class="resource-cards">
+					<a href="/geo-checkliste/" class="resource-card">
+						<img src="/geo-checkliste-card.webp" alt="GEO-Checkliste Vorschau" class="resource-card-img" width="320" height="140" />
+						<h3>GEO-Checkliste</h3>
+						<p>Die 20 wichtigsten Kriterien für GEO/AEO – kostenloses PDF + GEO-Analyse.</p>
+					</a>
+					<a href="/seo-checkliste/" class="resource-card">
+						<img src="/seocheckliste.webp" alt="47-Punkt SEO-Checkliste Vorschau" class="resource-card-img" width="320" height="140" />
+						<h3>47-Punkt SEO-Checkliste</h3>
+						<p>Technisches SEO, On-Page, Content & GEO, Local SEO, Monitoring – kostenlos in Google Tabellen.</p>
+					</a>
+				</div>
 			</div>
 		</section>
 		<section class="section-white">

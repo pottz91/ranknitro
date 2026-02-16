@@ -47,7 +47,7 @@ export default defineConfig({
 							acceptAllBtn: 'Alle akzeptieren',
 							acceptNecessaryBtn: 'Nur notwendige',
 							showPreferencesBtn: 'Einstellungen',
-							footer: '<a href="/datenschutz/">Datenschutz</a> · <a href="/impressum/">Impressum</a><br><small>Einwilligungs-ID: <span id="cc-consent-id">—</span></small>',
+							footer: '<a href="/datenschutz/">Datenschutz</a> · <a href="/impressum/">Impressum</a>',
 						},
 						preferencesModal: {
 							title: 'Cookie-Einstellungen',
@@ -85,10 +85,6 @@ export default defineConfig({
 									description:
 										'Besonders eingriffsintensiv: z. B. Aufzeichnung von Sitzungen, Heatmaps, Verhaltensanalyse. Nur mit Ihrer ausdrücklichen Einwilligung. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
 									linkedCategory: 'session-analyse',
-								},
-								{
-									title: 'Ihre Einwilligungs-ID',
-									description: '<span id="cc-consent-id-pm">—</span>',
 								},
 							],
 						},

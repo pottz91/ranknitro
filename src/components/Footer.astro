@@ -26,7 +26,6 @@ const year = new Date().getFullYear();
 				<li><a href="/datenschutz/">Datenschutz</a></li>
 				<li><a href="/agb/">AGB</a></li>
 				<li><a href="#" class="cookie-settings" id="footer-cookie-settings" data-cc="show-preferencesModal">Cookie-Einstellungen</a></li>
-				<li class="footer-consent-id">Einwilligungs-ID: <span id="rn-consent-id">—</span></li>
 			</ul>
 		</div>
 	</div>
@@ -46,23 +45,6 @@ const year = new Date().getFullYear();
 			} catch (err) {}
 		}, 0);
 	});
-	function rnUpdateConsentId() {
-		try {
-			if (window.rnGetConsentIdForDisplay) {
-				var el = document.getElementById('rn-consent-id');
-				if (el) el.textContent = window.rnGetConsentIdForDisplay() || '\u2014';
-			}
-		} catch (e) {}
-	}
-	rnUpdateConsentId();
-	document.addEventListener('DOMContentLoaded', function() {
-		rnUpdateConsentId();
-		setTimeout(rnUpdateConsentId, 500);
-		setTimeout(rnUpdateConsentId, 1500);
-	});
-	document.addEventListener('cc:onConsent', rnUpdateConsentId);
-	document.addEventListener('cc:onFirstConsent', rnUpdateConsentId);
-	document.addEventListener('cc:onChange', rnUpdateConsentId);
 </script>
 
 <style>
@@ -117,14 +99,6 @@ const year = new Date().getFullYear();
 	}
 	.footer-col li {
 		margin-bottom: 0.35rem;
-	}
-	.footer-consent-id {
-		font-size: 0.85rem;
-		color: rgba(255, 255, 255, 0.75);
-		margin-top: 0.25rem;
-	}
-	.footer-consent-id #rn-consent-id {
-		font-family: ui-monospace, monospace;
 	}
 	.footer-bottom {
 		max-width: 960px;

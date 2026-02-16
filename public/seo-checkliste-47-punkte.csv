@@ -1,0 +1,48 @@
+Kategorie;Nr.;Checkpunkt;Priorität;Status;Notizen
+Technisches SEO;1;SSL-Zertifikat aktiv (HTTPS auf allen Seiten);Hoch;;
+Technisches SEO;2;Ladezeit unter 2,5 Sekunden (Core Web Vitals: LCP);Hoch;;Testen: pagespeed.web.dev
+Technisches SEO;3;Mobile-Friendly Test bestanden;Hoch;;Testen: search.google.com/test/mobile-friendly
+Technisches SEO;4;Robots.txt korrekt konfiguriert (keine wichtigen Seiten blockiert);Hoch;;
+Technisches SEO;5;XML-Sitemap eingereicht und fehlerfrei;Hoch;;
+Technisches SEO;6;Hreflang-Tags gesetzt (bei mehrsprachigen Seiten);Niedrig;;Nur relevant bei Mehrsprachigkeit
+Technisches SEO;7;Strukturierte Daten / Schema Markup implementiert (mind. Organization + LocalBusiness);Hoch;;Testen: search.google.com/test/rich-results
+Technisches SEO;8;Broken Links geprüft und behoben (404-Fehler);Mittel;;Tool: Screaming Frog oder Ahrefs
+Technisches SEO;9;Bilder komprimiert und in WebP/AVIF Format;Mittel;;
+Technisches SEO;10;Lazy Loading für Bilder unterhalb des Viewports;Niedrig;;
+Technisches SEO;11;Canonical Tags korrekt gesetzt;Hoch;;
+Technisches SEO;12;Keine Duplicate-Content-Probleme;Hoch;;
+Technisches SEO;13;HTTPS-Weiterleitung (301) von HTTP;Hoch;;
+Technisches SEO;14;Interne Verlinkungsstruktur logisch;Mittel;;
+Technisches SEO;15;Crawl-Budget effizient (wichtige Seiten indexierbar);Mittel;;
+Technisches SEO;16;JavaScript-Rendering für Suchmaschinen sichergestellt;Mittel;;
+On-Page SEO;17;Jede Seite hat einen einzigartigen Title Tag (50-60 Zeichen);Hoch;;
+On-Page SEO;18;Jede Seite hat eine einzigartige Meta Description (150-160 Zeichen);Hoch;;
+On-Page SEO;19;Nur EINE H1 pro Seite mit Hauptkeyword;Hoch;;
+On-Page SEO;20;Logische Heading-Hierarchie (H1 → H2 → H3 keine Sprünge);Hoch;;
+On-Page SEO;21;Bilder haben beschreibende ALT-Tags mit Keywords;Mittel;;
+On-Page SEO;22;URLs sind kurz sprechend und enthalten das Keyword;Hoch;;Beispiel: /seo-checkliste statt /p=123
+On-Page SEO;23;Interne Verlinkung: Jede wichtige Seite hat mind. 3 interne Links;Hoch;;
+On-Page SEO;24;Content-Länge mind. 800 Wörter für Hauptseiten / Blog;Mittel;;
+On-Page SEO;25;Keyword-Variationen und semantisch verwandte Begriffe eingebaut;Mittel;;
+On-Page SEO;26;Call-to-Action auf wichtigen Seiten vorhanden;Mittel;;
+On-Page SEO;27;Content-Qualität: Mehrwert und Nutzerabsicht erfüllt;Hoch;;
+Off-Page SEO;28;Backlink-Profil geprüft (qualitativ nicht nur quantitativ);Hoch;;
+Off-Page SEO;29;Schädliche oder spammy Backlinks identifiziert;Mittel;;
+Off-Page SEO;30;Google Business Profile optimiert (bei lokalen Unternehmen);Hoch;;
+Off-Page SEO;31;Einträge in seriösen Verzeichnissen;Niedrig;;
+Off-Page SEO;32;Social Signals (optional) konsistent;Niedrig;;
+Content;33;Blog/Redaktion mit regelmäßigen Veröffentlichungen;Mittel;;
+Content;34;Thematische Relevanz der Inhalte zum Geschäftsmodell;Hoch;;
+Content;35;Content-Kalender und Redaktionsplan vorhanden;Mittel;;
+Content;36;Unique Content – keine Kopien von anderen Seiten;Hoch;;
+Content;37;FAQ-Sektion wo sinnvoll;Mittel;;
+Conversion;38;Kontaktmöglichkeiten klar und erreichbar;Hoch;;
+Conversion;39;Datenschutz und Impressum vollständig;Hoch;;
+Conversion;40;Cookie-Hinweis und Einwilligung DSGVO-konform;Hoch;;
+Conversion;41;Ladezeiten auf Conversion-relevanten Seiten optimiert;Mittel;;
+Conversion;42;Formulare getestet und fehlerfrei;Hoch;;
+Conversion;43;Call-to-Action above the fold sichtbar;Mittel;;
+Monitoring;44;Google Search Console eingerichtet und geprüft;Hoch;;
+Monitoring;45;Google Analytics 4 oder vergleichbar konfiguriert;Mittel;;
+Monitoring;46;Ranking-Monitoring für Kern-Keywords;Mittel;;
+Monitoring;47;Regelmäßige Sichtung von Sitelinks und Rich Snippets;Niedrig;;
