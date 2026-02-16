@@ -57,15 +57,15 @@ export default defineConfig({
 							closeIconLabel: 'Schließen',
 							sections: [
 								{
-									title: 'Notwendige Cookies',
+									title: 'Notwendige Dienste',
 									description:
-										'Immer aktiv. Diese Cookies sind für den Betrieb der Website technisch erforderlich und können nicht deaktiviert werden. Rechtsgrundlage: § 25 Abs. 2 Nr. 2 TDDDG i. V. m. Art. 6 Abs. 1 lit. f DSGVO.',
+										'<strong>Bunny.net CDN (Auslieferung von Schriftarten)</strong><br>Anbieter: Bunny.net, BunnyWay d.o.o., Cesta komandanta Staneta 4A, 1215 Medvode, Slowenien (EU).<br><br>Wir nutzen Bunny.net als Content Delivery Network (CDN) zur technisch sicheren und performanten Auslieferung von Schriftarten und statischen Inhalten. Beim Aufruf der Website wird die IP-Adresse an Server von Bunny übertragen, um die Inhalte bereitzustellen. Es erfolgt keine Profilbildung und keine Nutzung zu Marketingzwecken.<br><br>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO, § 25 Abs. 2 Nr. 2 TDDDG (technisch erforderlich). Speicherdauer: Server-Logdaten werden gemäß den technischen Erforderlichkeiten des Anbieters verarbeitet und regelmäßig gelöscht.',
 									linkedCategory: 'necessary',
 								},
 								{
-									title: 'Analyse',
+									title: 'Analyse / Statistik',
 									description:
-										'Statistik-Cookies helfen uns zu verstehen, wie Besucher die Website nutzen. Sie werden nur mit Ihrer Einwilligung gesetzt. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG.',
+										'<strong>Rybbit Analytics (Self-Hosted)</strong><br>Anbieter: Self-Hosted auf eigenem VPS, Hostinger International Ltd., EU-Serverstandort.<br><br>Wir nutzen das Webanalyse-Tool Rybbit zur statistischen Auswertung der Nutzung unserer Website. Die Analyse dient ausschließlich der Verbesserung unseres Online-Angebots. Es werden keine IP-Adressen gespeichert. Es werden keine dauerhaften Identifier oder Geräte-Fingerprints eingesetzt. Es erfolgt keine Erstellung personenbezogener Nutzerprofile. Die Verarbeitung erfolgt ausschließlich nach Ihrer Einwilligung.<br><br>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG. Speicherdauer: maximal 12 Monate.',
 									linkedCategory: 'analytics',
 								},
 								{
