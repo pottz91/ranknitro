@@ -155,14 +155,24 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 		});
 	}
 	function fillConsentIdInModal() {
-		try {
-			var cc = window.CookieConsent;
-			if (!cc || !cc.getCookie) return;
-			var cookie = cc.getCookie();
-			var id = (cookie && cookie.consentId) ? cookie.consentId : '—';
-			document.querySelectorAll('#cc-main .cc-consent-id, #cc-main .cc-consent-id-pm').forEach(function(el) { el.textContent = id; });
-		} catch (e) {}
+		function run() {
+			try {
+				var cc = window.CookieConsent;
+				if (!cc || !cc.getCookie) return;
+				var cookie = cc.getCookie();
+				var id = (cookie && cookie.consentId) ? String(cookie.consentId) : '—';
+				var el1 = document.getElementById('cc-consent-id');
+				var el2 = document.getElementById('cc-consent-id-pm');
+				if (el1) el1.textContent = id;
+				if (el2) el2.textContent = id;
+			} catch (e) {}
+		}
+		run();
+		setTimeout(run, 150);
+		setTimeout(run, 500);
+		setTimeout(run, 1000);
 	}
 	document.addEventListener('cc:onModalShow', fillConsentIdInModal);
 	document.addEventListener('cc:onModalReady', fillConsentIdInModal);
+	document.addEventListener('cc:onConsent', fillConsentIdInModal);
 </script>

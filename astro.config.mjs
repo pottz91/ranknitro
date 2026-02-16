@@ -47,7 +47,7 @@ export default defineConfig({
 							acceptAllBtn: 'Alle akzeptieren',
 							acceptNecessaryBtn: 'Nur notwendige',
 							showPreferencesBtn: 'Einstellungen',
-							footer: '<a href="/datenschutz/">Datenschutz</a> · <a href="/impressum/">Impressum</a><br><small>Einwilligungs-ID: <span class="cc-consent-id">—</span></small>',
+							footer: '<a href="/datenschutz/">Datenschutz</a> · <a href="/impressum/">Impressum</a><br><small>Einwilligungs-ID: <span id="cc-consent-id">—</span></small>',
 						},
 						preferencesModal: {
 							title: 'Cookie-Einstellungen',
@@ -88,7 +88,7 @@ export default defineConfig({
 								},
 								{
 									title: 'Ihre Einwilligungs-ID',
-									description: '<span class="cc-consent-id-pm">—</span>',
+									description: '<span id="cc-consent-id-pm">—</span>',
 								},
 							],
 						},
