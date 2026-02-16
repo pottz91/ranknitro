@@ -77,16 +77,25 @@ img {
 
 code {
 	padding: 2px 5px;
-	background-color: var(--gray-bg);
+	background-color: #e8e8e8;
 	border: 1px solid var(--gray-border);
 	border-radius: 0;
+	color: var(--black);
 }
 pre {
 	padding: 1.5em;
+	background-color: #e8e8e8;
 	border: 1px solid var(--gray-border);
 	border-radius: 0;
+	color: var(--black);
 }
-pre > code { all: unset; border: none; padding: 0; }
+pre > code {
+	all: unset;
+	border: none;
+	padding: 0;
+	background: transparent;
+	color: inherit;
+}
 
 blockquote {
 	border-left: 4px solid var(--black);

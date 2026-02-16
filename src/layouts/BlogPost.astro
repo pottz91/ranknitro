@@ -115,7 +115,17 @@ const webPageJsonLd = !isArticle && webPageSchema(siteUrl, pageUrl, title, descr
 				padding: 0.15em 0.4em;
 				border: 1px solid #010208;
 				font-size: 0.9em;
-				background: #f8f8f8;
+				background: #e8e8e8;
+				color: #010208;
+			}
+			.article-body :global(pre) {
+				background: #e8e8e8;
+				color: #010208;
+			}
+			.article-body :global(pre code) {
+				background: transparent;
+				border: none;
+				color: inherit;
 			}
 			.title-wrap {
 				margin-bottom: 2em;
