@@ -49,6 +49,7 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 				max-width: 960px;
 				margin: 0 auto;
 				padding: 3rem 1.5rem;
+				box-sizing: border-box;
 			}
 			.blog-page .intro h1 {
 				font-family: "Montserrat", sans-serif;
@@ -118,8 +119,30 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 				color: #010208;
 			}
 			@media (max-width: 720px) {
+				.blog-page main {
+					padding: 1.5rem 1rem 2rem;
+					max-width: 100%;
+				}
+				.blog-page .intro h1 {
+					font-size: 1.75rem;
+				}
+				.blog-page .intro p {
+					font-size: 0.95rem;
+				}
+				.blog-grid {
+					gap: 1.25rem;
+				}
 				.blog-grid li {
 					width: 100%;
+				}
+				.blog-card .card-content {
+					padding: 1rem;
+				}
+				.blog-card .title {
+					font-size: 1.1rem;
+				}
+				.blog-card .date {
+					font-size: 0.85rem;
 				}
 			}
 		</style>
