@@ -110,14 +110,19 @@ export default async (req: Request): Promise<Response> => {
 		});
 	}
 
+	const envKeysWithSupabase = typeof process !== 'undefined' && process.env
+		? Object.keys(process.env).filter((k) => k.toUpperCase().includes('SUPABASE'))
+		: [];
+
 	return new Response(
 		JSON.stringify({
 			error: 'Consent-Log nicht konfiguriert',
-			hint: 'In Netlify: Site configuration → Environment variables. SUPABASE_URL und SUPABASE_SERVICE_ROLE_KEY setzen – Scopes müssen „Functions“ enthalten.',
+			hint: 'Netlify: Environment variables → SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY, Scopes: „Functions“ aktiv, dann neu deployen.',
 			missing: {
 				SUPABASE_URL: !supabaseUrl,
 				SUPABASE_SERVICE_ROLE_KEY: !supabaseKey,
 			},
+			envKeysSeen: envKeysWithSupabase,
 		}),
 		{
 			status: 503,
