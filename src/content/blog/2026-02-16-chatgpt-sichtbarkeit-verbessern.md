@@ -2,6 +2,8 @@
 title: 'chatgpt sichtbarkeit verbessern'
 description: 'chatgpt sichtbarkeit verbessern'
 pubDate: 'Feb 16, 2026'
+slug: chatgpt-sichtbarkeit-verbessern
+category: seo
 ---
 
 ## ChatGPT Sichtbarkeit verbessern: So bringen Sie Ihre KI-generierten Inhalte zum Strahlen

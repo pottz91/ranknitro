@@ -5,6 +5,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import { MAIN_CATEGORY_SLUG, SUBCATEGORIES } from '../../data/blog-categories';
 import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '../../consts';
 import {
 	blogSchema,
@@ -60,6 +61,45 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 				font-family: "Source Sans 3", sans-serif;
 				line-height: 1.6;
 				color: #010208;
+			}
+			.category-nav {
+				list-style: none;
+				margin: 0 0 2rem 0;
+				padding: 0;
+			}
+			.category-nav > li {
+				margin: 0;
+			}
+			.category-nav > li > a {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 1.1rem;
+				color: #010208;
+				text-decoration: none;
+			}
+			.category-nav > li > a:hover {
+				text-decoration: underline;
+			}
+			.subcategory-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem 1rem;
+				list-style: none;
+				margin: 0.5rem 0 0 0;
+				padding: 0;
+			}
+			.subcategory-list a {
+				font-family: "Source Sans 3", sans-serif;
+				font-weight: 700;
+				color: #010208;
+				text-decoration: none;
+				padding: 0.35rem 0.6rem;
+				border: 1px solid #010208;
+				background: #FFFFFF;
+			}
+			.subcategory-list a:hover {
+				background: #010208;
+				color: #FFFFFF;
 			}
 			.blog-grid {
 				display: flex;
@@ -154,11 +194,27 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 				<h1>Blog</h1>
 				<p>SEO, GEO und Suchmaschinen-Marketing – Tipps und Strategien für bessere Rankings.</p>
 			</section>
+			<nav aria-label="Kategorien">
+				<ul class="category-nav">
+					<li>
+						<a href={`/blog/category/${MAIN_CATEGORY_SLUG}/`}>SEO</a>
+						<ul class="subcategory-list">
+							{SUBCATEGORIES.map((sub) => (
+								<li>
+									<a href={`/blog/category/${MAIN_CATEGORY_SLUG}/${sub.slug}/`}>{sub.label}</a>
+								</li>
+							))}
+						</ul>
+					</li>
+				</ul>
+			</nav>
 			<ul class="blog-grid">
 				{
-					posts.map((post) => (
+					posts.map((post) => {
+						const href = `/blog/${post.data.slug ?? post.id}/`;
+						return (
 						<li>
-							<a href={`/blog/${post.id}/`} class="blog-card">
+							<a href={href} class="blog-card">
 								{post.data.heroImage && (
 									<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />
 								)}
@@ -170,7 +226,8 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 								</div>
 							</a>
 						</li>
-					))
+					);
+					})
 				}
 			</ul>
 		</main>

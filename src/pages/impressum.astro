@@ -8,7 +8,7 @@ import { breadcrumbListSchema, webPageSchema } from '../utils/schema';
 const siteUrl = Astro.site?.href ?? SITE_URL;
 const pageUrl = new URL('/impressum/', siteUrl).href;
 const title = `Impressum – ${SITE_TITLE}`;
-const description = 'Impressum und Angaben gemäß § 5 TMG / Art. 5 RStV.';
+const description = 'Impressum und Angaben gemäß § 5 DDG – Potthast Online-Marketing GbR.';
 const webPageJsonLd = webPageSchema(siteUrl, pageUrl, title, description);
 const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 	{ name: 'Start', url: '/' },
@@ -25,36 +25,43 @@ const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="legal-page">
 			<h1>Impressum</h1>
-			<p>Angaben gemäß § 5 TMG und Art. 5 RStV.</p>
+			<p>Angaben gemäß § 5 DDG</p>
 
-			<h2>Anbieter</h2>
+			<h2>Potthast Online-Marketing GbR</h2>
 			<p>
-				[Firma / Name]<br />
-				[Straße und Hausnummer]<br />
-				[PLZ und Ort]
+				Zeissring 9c<br />
+				37603 Holzminden<br />
+				Deutschland
+			</p>
+
+			<h2>Vertreten durch die Gesellschafter</h2>
+			<p>
+				Constanze Potthast<br />
+				Christopher Potthast
 			</p>
 
 			<h2>Kontakt</h2>
 			<p>
-				E-Mail: [E-Mail-Adresse]<br />
-				[Optional: Telefon]
+				Telefon: <a href="tel:+4917647624350">+49 176 47624350</a><br />
+				E-Mail: <a href="mailto:info@christopher-potthast.de">info@christopher-potthast.de</a>
 			</p>
 
-			<h2>Umsatzsteuer-ID</h2>
-			<p>[USt-IdNr., falls vorhanden]</p>
+			<h2>Umsatzsteuer</h2>
+			<p>Umsatzsteuerbefreit gemäß § 19 UStG (Kleinunternehmerregelung)</p>
 
-			<h2>Handelsregister</h2>
-			<p>[Registergericht und Registernummer, falls eingetragen]</p>
-
-			<h2>Verantwortlich für den Inhalt</h2>
-			<p>[Name und Anschrift des Verantwortlichen nach § 55 Abs. 2 RStV]</p>
-
-			<h2>EU-Streitschlichtung</h2>
+			<h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
 			<p>
-				Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
-				<a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr/</a>.
+				Constanze Potthast<br />
+				Zeissring 9c<br />
+				37603 Holzminden<br />
+				Deutschland
+			</p>
+
+			<h2>Verbraucherstreitbeilegung</h2>
+			<p>
+				Wir sind zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle weder verpflichtet noch bereit.
 			</p>
 		</main>
 		<Footer />

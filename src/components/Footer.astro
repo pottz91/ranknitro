@@ -1,42 +1,121 @@
 ---
-const today = new Date();
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-	<p>&copy; {today.getFullYear()} Ranknitro – SEO & GEO Agentur.</p>
-	<nav class="legal-links">
-		<a href="/impressum/">Impressum</a>
-		<a href="/datenschutz/">Datenschutz</a>
-		<a href="/agb/">AGB</a>
-	</nav>
+	<div class="footer-inner">
+		<div class="footer-col footer-brand">
+			<h3 class="footer-heading">Ranknitro</h3>
+			<p class="footer-tagline">SEO & GEO Agentur</p>
+			<p class="footer-desc">Mehr Sichtbarkeit in Suchmaschinen und Answer Engines.</p>
+		</div>
+		<div class="footer-col footer-nav">
+			<h3 class="footer-heading">Navigation</h3>
+			<ul>
+				<li><a href="/">Start</a></li>
+				<li><a href="/blog/">Blog</a></li>
+				<li><a href="/geo-checkliste/">GEO-Checkliste</a></li>
+				<li><a href="/about/">Über uns</a></li>
+				<li><a href="/#geo-audit">Free GEO Audit</a></li>
+			</ul>
+		</div>
+		<div class="footer-col footer-legal">
+			<h3 class="footer-heading">Rechtliches</h3>
+			<ul>
+				<li><a href="/impressum/">Impressum</a></li>
+				<li><a href="/datenschutz/">Datenschutz</a></li>
+				<li><a href="/agb/">AGB</a></li>
+				<li><a href="#" class="cookie-settings" id="footer-cookie-settings" data-cc="show-preferencesModal">Cookie-Einstellungen</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="footer-bottom">
+		<p>&copy; {year} Ranknitro – SEO & GEO Agentur.</p>
+	</div>
 </footer>
+
+<script>
+	document.getElementById('footer-cookie-settings')?.addEventListener('click', (e) => {
+		e.preventDefault();
+		if (typeof window !== 'undefined' && window.CookieConsent?.showPreferences) {
+			window.CookieConsent.showPreferences();
+		}
+	});
+</script>
+
 <style>
 	.site-footer {
-		padding: 2rem 1.5rem 4rem;
-		background: #FFFFFF;
-		color: #010208;
-		text-align: center;
-		border-top: 1px solid #000000;
+		background: #010208;
+		color: #FFFFFF;
+		padding: 3rem 1.5rem 2rem;
+		border-radius: 0;
 	}
-	.site-footer p {
-		margin: 0 0 0.5rem 0;
-		font-family: "Source Sans 3", sans-serif;
-		font-size: 0.95rem;
+	.footer-inner {
+		max-width: 960px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		gap: 2rem 3rem;
 	}
-	.legal-links {
+	.footer-col {
 		display: flex;
-		justify-content: center;
-		gap: 1.5rem;
-		flex-wrap: wrap;
+		flex-direction: column;
+		gap: 0.75rem;
 	}
-	.legal-links a {
-		color: #010208;
-		text-decoration: underline;
+	.footer-heading {
 		font-family: "Montserrat", sans-serif;
 		font-weight: 700;
-		font-size: 0.9rem;
+		font-size: 1rem;
+		margin: 0 0 0.25rem 0;
+		color: #FFFFFF;
+		letter-spacing: 0.02em;
 	}
-	.legal-links a:hover {
+	.footer-tagline,
+	.footer-desc,
+	.footer-col ul {
+		font-family: "Source Sans 3", sans-serif;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		color: rgba(255, 255, 255, 0.9);
+	}
+	.footer-tagline {
+		font-weight: 700;
+		color: #FFFFFF;
+	}
+	.footer-col a {
+		color: rgba(255, 255, 255, 0.9);
 		text-decoration: none;
+	}
+	.footer-col a:hover {
+		color: #FFFFFF;
+		text-decoration: underline;
+	}
+	.footer-col li {
+		margin-bottom: 0.35rem;
+	}
+	.footer-bottom {
+		max-width: 960px;
+		margin: 3rem auto 0;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.25);
+		text-align: center;
+	}
+	.footer-bottom p {
+		font-family: "Source Sans 3", sans-serif;
+		font-size: 0.9rem;
+		margin: 0;
+		color: rgba(255, 255, 255, 0.85);
+	}
+	@media (max-width: 720px) {
+		.footer-inner {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+		.site-footer {
+			padding: 2rem 1rem 1.5rem;
+		}
 	}
 </style>

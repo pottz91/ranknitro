@@ -1,0 +1,245 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import {
+	MAIN_CATEGORY_LABEL,
+	MAIN_CATEGORY_SLUG,
+	SUBCATEGORIES,
+	getSubcategoryBySlug,
+} from '../../../data/blog-categories';
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '../../../consts';
+import {
+	breadcrumbListSchema,
+	webPageSchema,
+} from '../../../utils/schema';
+
+export async function getStaticPaths() {
+	const paths: { params: { slug: string }; props: { slugSegments: string[] } }[] = [
+		{ params: { slug: MAIN_CATEGORY_SLUG }, props: { slugSegments: [MAIN_CATEGORY_SLUG] } },
+	];
+	for (const sub of SUBCATEGORIES) {
+		paths.push({
+			params: { slug: `${MAIN_CATEGORY_SLUG}/${sub.slug}` },
+			props: { slugSegments: [MAIN_CATEGORY_SLUG, sub.slug] },
+		});
+	}
+	return paths;
+}
+
+interface Props {
+	slugSegments: string[];
+}
+
+const { slugSegments } = Astro.props;
+const isMainCategory = slugSegments.length === 1;
+const subSlug = slugSegments.length === 2 ? slugSegments[1] : undefined;
+const subcategory = subSlug ? getSubcategoryBySlug(subSlug) : undefined;
+
+const allPosts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const posts = allPosts.filter((p) => {
+	if (isMainCategory) {
+		return p.data.category === MAIN_CATEGORY_SLUG || p.data.subcategory;
+	}
+	return p.data.subcategory === subSlug;
+});
+
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const categoryPath = isMainCategory
+	? `/blog/category/${MAIN_CATEGORY_SLUG}/`
+	: `/blog/category/${MAIN_CATEGORY_SLUG}/${subSlug}/`;
+const pageUrl = new URL(categoryPath, siteUrl).href;
+
+const title = isMainCategory
+	? `${MAIN_CATEGORY_LABEL} – Blog – ${SITE_TITLE}`
+	: `${subcategory?.label ?? subSlug} – Blog – ${SITE_TITLE}`;
+const description = isMainCategory
+	? `Suchmaschinenoptimierung: Von Keyword-Recherche über technisches SEO bis zu SEO-Texten – Strategien für bessere Rankings.`
+	: SITE_DESCRIPTION;
+
+const breadcrumbItems = [
+	{ name: 'Start', url: '/' },
+	{ name: 'Blog', url: '/blog/' },
+	{ name: MAIN_CATEGORY_LABEL, url: `/blog/category/${MAIN_CATEGORY_SLUG}/` },
+];
+if (subcategory) {
+	breadcrumbItems.push({ name: subcategory.label, url: categoryPath });
+}
+
+const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, breadcrumbItems);
+const webPageJsonLd = webPageSchema(siteUrl, pageUrl, title, description);
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<BaseHead title={title} description={description} />
+		<script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+		<style>
+			body { background: #FFFFFF; }
+			.blog-page main {
+				background: #FFFFFF;
+				max-width: 960px;
+				margin: 0 auto;
+				padding: 3rem 1.5rem;
+				box-sizing: border-box;
+			}
+			.blog-page .intro h1 {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				color: #010208;
+			}
+			.blog-page .intro p {
+				font-family: "Source Sans 3", sans-serif;
+				line-height: 1.6;
+				color: #010208;
+			}
+			.subcategory-nav {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem 1rem;
+				list-style: none;
+				margin: 0 0 2rem 0;
+				padding: 0;
+			}
+			.subcategory-nav a {
+				font-family: "Source Sans 3", sans-serif;
+				font-weight: 700;
+				color: #010208;
+				text-decoration: none;
+				padding: 0.35rem 0.6rem;
+				border: 1px solid #010208;
+				background: #FFFFFF;
+			}
+			.subcategory-nav a:hover {
+				background: #010208;
+				color: #FFFFFF;
+			}
+			.blog-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			.blog-grid li {
+				width: calc(50% - 1rem);
+			}
+			.blog-grid li:first-child {
+				width: 100%;
+			}
+			.blog-card {
+				display: block;
+				text-decoration: none;
+				background: #FFFFFF;
+				border: 1px solid #000000;
+				border-radius: 0;
+				overflow: hidden;
+				transition: border-color 0.2s ease, background 0.2s ease;
+			}
+			.blog-card:hover {
+				border-color: #010208;
+				background: #F8F9FA;
+			}
+			.blog-card img {
+				width: 100%;
+				height: auto;
+				display: block;
+				border-radius: 0;
+				border-bottom: 1px solid #000000;
+			}
+			.blog-card .card-content {
+				padding: 1rem 1.25rem;
+			}
+			.blog-card .title {
+				font-family: "Montserrat", sans-serif;
+				font-weight: 700;
+				font-size: 1.25rem;
+				margin: 0 0 0.25rem 0;
+				color: #010208;
+				line-height: 1.2;
+			}
+			.blog-card .date {
+				font-family: "Source Sans 3", sans-serif;
+				font-size: 0.9rem;
+				line-height: 1.6;
+				color: #010208;
+				opacity: 0.8;
+				margin: 0;
+			}
+			@media (max-width: 720px) {
+				.blog-page main {
+					padding: 1.5rem 1rem 2rem;
+				}
+				.blog-grid li { width: 100%; }
+				.blog-card .card-content { padding: 1rem; }
+				.blog-card .title { font-size: 1.1rem; }
+				.blog-card .date { font-size: 0.85rem; }
+			}
+		</style>
+	</head>
+	<body class="blog-page">
+		<Header />
+		<main>
+			<section class="intro">
+				<h1>{isMainCategory ? MAIN_CATEGORY_LABEL : subcategory?.label ?? subSlug}</h1>
+				<p>
+					{isMainCategory
+						? 'Suchmaschinenoptimierung: Von Keyword-Recherche über technisches SEO bis zu SEO-Texten – Strategien für bessere Rankings.'
+						: `Artikel zur Kategorie ${subcategory?.label ?? subSlug}.`}
+				</p>
+			</section>
+
+			<nav aria-label="Subkategorien">
+				<ul class="subcategory-nav">
+					{SUBCATEGORIES.map((sub) => (
+						<li>
+							<a
+								href={`/blog/category/${MAIN_CATEGORY_SLUG}/${sub.slug}/`}
+								aria-current={sub.slug === subSlug ? 'page' : undefined}
+							>
+								{sub.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</nav>
+
+			<ul class="blog-grid">
+				{posts.length > 0 ? (
+					posts.map((post) => {
+						const href = `/blog/${post.data.slug ?? post.id}/`;
+						return (
+							<li>
+								<a href={href} class="blog-card">
+									{post.data.heroImage && (
+										<Image width={720} height={360} src={post.data.heroImage} alt={post.data.title} />
+									)}
+									<div class="card-content">
+										<h2 class="title">{post.data.title}</h2>
+										<p class="date">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+									</div>
+								</a>
+							</li>
+						);
+					})
+				) : (
+					<li>
+						<p>In dieser Kategorie sind noch keine Artikel vorhanden.</p>
+					</li>
+				)}
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>
