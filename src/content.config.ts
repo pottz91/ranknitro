@@ -4,7 +4,7 @@ import { SUBCATEGORY_SLUGS } from './data/blog-categories';
 
 const blog = defineCollection({
 	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
+	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}', retainBody: true }),
 	// Type-check frontmatter using a schema
 	schema: ({ image }) =>
 		z.object({
