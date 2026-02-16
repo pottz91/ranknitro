@@ -129,12 +129,16 @@
 	document.addEventListener('cc:onModalShow', fillConsentIdInModal);
 	document.addEventListener('cc:onModalReady', fillConsentIdInModal);
 	document.addEventListener('cc:onConsent', fillConsentIdInModal);
-	if (typeof MutationObserver !== 'undefined') {
+	function startObserver() {
+		var body = document.body;
+		if (!body || typeof MutationObserver === 'undefined') return;
 		var obs = new MutationObserver(function() { fillConsentIdInModal(); });
-		obs.observe(document.body, { childList: true, subtree: true });
+		obs.observe(body, { childList: true, subtree: true });
 		setTimeout(function() {
 			fillConsentIdInModal();
 			obs.disconnect();
 		}, 3000);
 	}
+	if (document.body) startObserver();
+	else document.addEventListener('DOMContentLoaded', startObserver);
 })();

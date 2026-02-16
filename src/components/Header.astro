@@ -8,7 +8,12 @@ import HeaderLink from './HeaderLink.astro';
 			<img src="/logo.avif" alt="Ranknitro" class="logo logo-light" width="160" height="40" />
 			<img src="/logo-dark.avif" alt="Ranknitro" class="logo logo-dark" width="160" height="40" />
 		</a>
-		<div class="nav-links">
+		<button type="button" class="burger-btn" id="burger-btn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
+			<span class="burger-line"></span>
+			<span class="burger-line"></span>
+			<span class="burger-line"></span>
+		</button>
+		<div class="nav-links" id="nav-links">
 			<HeaderLink href="/">Start</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/geo-checkliste">GEO-Checkliste</HeaderLink>
@@ -23,7 +28,6 @@ import HeaderLink from './HeaderLink.astro';
 		const header = document.getElementById('site-header');
 		if (!header) return;
 		const invertSections = document.querySelectorAll('[data-nav-invert]');
-		if (!invertSections.length) return;
 		const navHeight = 80;
 
 		function checkInvert() {
@@ -37,6 +41,30 @@ import HeaderLink from './HeaderLink.astro';
 		window.addEventListener('scroll', checkInvert, { passive: true });
 		window.addEventListener('resize', checkInvert);
 		checkInvert();
+
+		const burgerBtn = document.getElementById('burger-btn');
+		const navLinks = document.getElementById('nav-links');
+		if (burgerBtn && navLinks) {
+			burgerBtn.addEventListener('click', function () {
+				const open = header.classList.toggle('nav-open');
+				burgerBtn.setAttribute('aria-expanded', open);
+				burgerBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+			});
+			navLinks.querySelectorAll('a').forEach(function (link) {
+				link.addEventListener('click', function () {
+					header.classList.remove('nav-open');
+					burgerBtn.setAttribute('aria-expanded', 'false');
+					burgerBtn.setAttribute('aria-label', 'Menü öffnen');
+				});
+			});
+			window.addEventListener('resize', function () {
+				if (window.innerWidth > 720) {
+					header.classList.remove('nav-open');
+					burgerBtn.setAttribute('aria-expanded', 'false');
+					burgerBtn.setAttribute('aria-label', 'Menü öffnen');
+				}
+			});
+		}
 	})();
 </script>
 
@@ -132,18 +160,81 @@ import HeaderLink from './HeaderLink.astro';
 		color: #FFFFFF;
 		border-color: #FFFFFF;
 	}
+	.burger-btn {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		gap: 5px;
+		width: 44px;
+		height: 44px;
+		padding: 0;
+		border: 2px solid currentColor;
+		background: transparent;
+		cursor: pointer;
+		color: #010208;
+		transition: color 0.2s ease, border-color 0.2s ease;
+	}
+	.burger-btn:hover {
+		opacity: 0.85;
+	}
+	.site-header.nav-inverted .burger-btn {
+		color: #FFFFFF;
+		border-color: #FFFFFF;
+	}
+	.burger-line {
+		display: block;
+		width: 22px;
+		height: 2px;
+		background: currentColor;
+		transition: transform 0.25s ease, opacity 0.25s ease;
+	}
+	.site-header.nav-open .burger-line:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+	.site-header.nav-open .burger-line:nth-child(2) {
+		opacity: 0;
+	}
+	.site-header.nav-open .burger-line:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
 	@media (max-width: 720px) {
 		.site-header nav {
 			flex-wrap: wrap;
 			padding: 0.5rem 1rem;
 		}
+		.burger-btn {
+			display: flex;
+			order: 2;
+			margin-left: auto;
+		}
 		.nav-links {
 			order: 3;
 			width: 100%;
+			max-height: 0;
+			overflow: hidden;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
 			justify-content: flex-start;
+			transition: max-height 0.3s ease;
+		}
+		.site-header.nav-open .nav-links {
+			max-height: 280px;
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+		}
+		.nav-links a {
+			padding: 0.75rem 1rem;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+		}
+		.site-header.nav-inverted .nav-links a {
+			border-bottom-color: rgba(255, 255, 255, 0.2);
 		}
 		.cta-btn {
-			margin-left: auto;
+			order: 4;
+			margin-left: 0;
+			width: 100%;
+			text-align: center;
 		}
 	}
 </style>
