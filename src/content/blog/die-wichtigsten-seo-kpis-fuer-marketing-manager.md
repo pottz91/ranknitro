@@ -1,6 +1,6 @@
 ---
 title: 'Die wichtigsten SEO KPIs für Marketing-Manager'
-description: 'Marketing-Manager aufgepasst: Erfahren Sie, welche SEO KPIs wirklich zählen, um Ihre Strategie zu optimieren und den Erfolg messbar zu machen. Steigern Sie Ihre Performance!'
+description: 'Marketing-Manager aufgepasst: Erfahren Sie, welche SEO KPIs wirklich zählen, um Ihre Strategie zu optimieren und den Erfolg messbar zu machen.'
 pubDate: '2026-02-16'
 slug: die-wichtigsten-seo-kpis-fuer-marketing-manager
 category: seo
