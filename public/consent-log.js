@@ -100,31 +100,38 @@
 		return null;
 	}
 	function fillConsentIdInModal() {
-		var id = getConsentIdFromCookie() || '\u2014';
-		function setPlaceholders() {
-			var el1 = document.getElementById('cc-consent-id');
-			var el2 = document.getElementById('cc-consent-id-pm');
-			if (el1) el1.textContent = id;
-			if (el2) el2.textContent = id;
-			var root = document.getElementById('cc-main') || document.body;
-			var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
-			var node;
-			while ((node = walker.nextNode())) {
-				if (node.nodeValue && node.nodeValue.trim() === '\u2014') {
-					var parent = node.parentElement;
-					if (parent && (parent.closest('[id="cc-main"]') || parent.closest('.cm'))) {
-						var container = parent.closest('small') || parent.closest('.cm__desc') || parent;
-						if (container && (container.textContent.indexOf('Einwilligungs-ID') !== -1 || container.textContent === '\u2014')) {
-							node.nodeValue = id;
+		try {
+			var id = getConsentIdFromCookie() || '\u2014';
+			function setPlaceholders() {
+				try {
+					var el1 = document.getElementById('cc-consent-id');
+					var el2 = document.getElementById('cc-consent-id-pm');
+					if (el1) el1.textContent = id;
+					if (el2) el2.textContent = id;
+					var root = document.getElementById('cc-main');
+					if (!root) return;
+					var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+					var toReplace = [];
+					var node;
+					while ((node = walker.nextNode())) {
+						if (node.nodeValue && node.nodeValue.trim() === '\u2014') {
+							var parent = node.parentElement;
+							if (!parent) continue;
+							var container = parent.closest('small') || parent.closest('.cm__desc') || parent;
+							if (container && (container.textContent.indexOf('Einwilligungs-ID') !== -1 || container.textContent === '\u2014')) {
+								toReplace.push(node);
+							}
 						}
 					}
-				}
+					for (var i = 0; i < toReplace.length; i++) {
+						toReplace[i].nodeValue = id;
+					}
+				} catch (e) {}
 			}
-		}
-		setPlaceholders();
-		setTimeout(setPlaceholders, 100);
-		setTimeout(setPlaceholders, 400);
-		setTimeout(setPlaceholders, 1000);
+			setPlaceholders();
+			setTimeout(setPlaceholders, 100);
+			setTimeout(setPlaceholders, 400);
+		} catch (e) {}
 	}
 	document.addEventListener('cc:onModalShow', fillConsentIdInModal);
 	document.addEventListener('cc:onModalReady', fillConsentIdInModal);
@@ -133,10 +140,12 @@
 		var body = document.body;
 		if (!body || typeof MutationObserver === 'undefined') return;
 		var obs = new MutationObserver(function() { fillConsentIdInModal(); });
-		obs.observe(body, { childList: true, subtree: true });
+		try {
+			obs.observe(body, { childList: true, subtree: true });
+		} catch (e) { return; }
 		setTimeout(function() {
-			fillConsentIdInModal();
-			obs.disconnect();
+			try { fillConsentIdInModal(); } catch (e) {}
+			try { obs.disconnect(); } catch (e) {}
 		}, 3000);
 	}
 	if (document.body) startObserver();
