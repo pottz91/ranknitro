@@ -2,13 +2,29 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from '../consts';
+import {
+	breadcrumbListSchema,
+	organizationSchema,
+	webPageSchema,
+	webSiteSchema,
+} from '../utils/schema';
+
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const organizationJsonLd = organizationSchema(siteUrl, SITE_TITLE, SITE_DESCRIPTION);
+const websiteJsonLd = webSiteSchema(siteUrl, SITE_TITLE, SITE_DESCRIPTION);
+const webPageJsonLd = webPageSchema(siteUrl, siteUrl, SITE_TITLE, SITE_DESCRIPTION);
+const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [{ name: 'Start', url: '/' }]);
 ---
 
 <!doctype html>
 <html lang="de">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script type="application/ld+json" set:html={JSON.stringify(organizationJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 		<style>
 			.hero {
 				background: #010208;

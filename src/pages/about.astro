@@ -8,6 +8,9 @@ import Layout from '../layouts/BlogPost.astro';
 	description="Ranknitro – Ihre SEO & GEO Agentur für mehr Sichtbarkeit in Suchmaschinen."
 	pubDate={new Date('2025-02-15')}
 	heroImage={AboutHeroImage}
+	schemaType="page"
+	breadcrumbItems={[{ name: 'Start', url: '/' }, { name: 'Über uns', url: '/about/' }]}
+	noindex
 >
 	<p>
 		Ranknitro ist Ihre Agentur für Suchmaschinen-Optimierung (SEO) und Suchmaschinen-Marketing (SEA/GEO). Wir unterstützen Unternehmen dabei, organisch und durch gezielte Werbung in Google & Co. besser zu ranken.

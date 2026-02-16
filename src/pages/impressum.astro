@@ -2,16 +2,26 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_URL } from '../consts';
+import { breadcrumbListSchema, webPageSchema } from '../utils/schema';
+
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const pageUrl = new URL('/impressum/', siteUrl).href;
+const title = `Impressum – ${SITE_TITLE}`;
+const description = 'Impressum und Angaben gemäß § 5 TMG / Art. 5 RStV.';
+const webPageJsonLd = webPageSchema(siteUrl, pageUrl, title, description);
+const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
+	{ name: 'Start', url: '/' },
+	{ name: 'Impressum', url: '/impressum/' },
+]);
 ---
 
 <!doctype html>
 <html lang="de">
 	<head>
-		<BaseHead
-			title={`Impressum – ${SITE_TITLE}`}
-			description="Impressum und Angaben gemäß § 5 TMG / Art. 5 RStV."
-		/>
+		<BaseHead title={title} description={description} noindex />
+		<script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 	</head>
 	<body>
 		<Header />

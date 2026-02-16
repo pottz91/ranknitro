@@ -2,16 +2,26 @@
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import { SITE_TITLE, SITE_URL } from '../consts';
+import { breadcrumbListSchema, webPageSchema } from '../utils/schema';
+
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const pageUrl = new URL('/datenschutz/', siteUrl).href;
+const title = `Datenschutz – ${SITE_TITLE}`;
+const description = 'Datenschutzerklärung – Informationen zur Verarbeitung personenbezogener Daten.';
+const webPageJsonLd = webPageSchema(siteUrl, pageUrl, title, description);
+const breadcrumbJsonLd = breadcrumbListSchema(siteUrl, [
+	{ name: 'Start', url: '/' },
+	{ name: 'Datenschutz', url: '/datenschutz/' },
+]);
 ---
 
 <!doctype html>
 <html lang="de">
 	<head>
-		<BaseHead
-			title={`Datenschutz – ${SITE_TITLE}`}
-			description="Datenschutzerklärung – Informationen zur Verarbeitung personenbezogener Daten."
-		/>
+		<BaseHead title={title} description={description} noindex />
+		<script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
 	</head>
 	<body>
 		<Header />

@@ -5,15 +5,63 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { SITE_TITLE, SITE_URL } from '../consts';
+import type { BreadcrumbItem } from '../utils/schema';
+import {
+	blogPostingSchema,
+	breadcrumbListSchema,
+	webPageSchema,
+} from '../utils/schema';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & {
+	schemaType?: 'blog' | 'page';
+	breadcrumbItems?: BreadcrumbItem[];
+	noindex?: boolean;
+};
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, schemaType = 'blog', breadcrumbItems, noindex } = Astro.props;
+const siteUrl = Astro.site?.href ?? SITE_URL;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).href;
+const imageUrl = heroImage ? new URL(heroImage.src, Astro.site).href : undefined;
+
+const isArticle = schemaType === 'blog';
+const articleJsonLd =
+	isArticle &&
+	blogPostingSchema({
+		siteUrl,
+		url: pageUrl,
+		headline: title,
+		description,
+		datePublished: pubDate.toISOString(),
+		dateModified: updatedDate?.toISOString(),
+		imageUrl,
+		authorName: SITE_TITLE,
+	});
+const breadcrumbJsonLd = breadcrumbListSchema(
+	siteUrl,
+	breadcrumbItems ?? [
+		{ name: 'Start', url: '/' },
+		{ name: 'Blog', url: '/blog/' },
+		{ name: title, url: Astro.url.pathname },
+	]
+);
+const webPageJsonLd = !isArticle && webPageSchema(siteUrl, pageUrl, title, description);
 ---
 
 <html lang="de">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead
+			title={title}
+			description={description}
+			image={heroImage}
+			type={isArticle ? 'article' : 'website'}
+			publishedTime={isArticle ? pubDate.toISOString() : undefined}
+			modifiedTime={isArticle ? updatedDate?.toISOString() : undefined}
+			noindex={noindex}
+		/>
+		{articleJsonLd && <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />}
+		<script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+		{webPageJsonLd && <script type="application/ld+json" set:html={JSON.stringify(webPageJsonLd)} />}
 		<style>
 			body { background: #FFFFFF; }
 			main {
@@ -78,7 +126,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<article>
 				{heroImage && (
 					<div class="hero-image">
-						<Image width={1020} height={510} src={heroImage} alt="" />
+						<Image width={1020} height={510} src={heroImage} alt={title} />
 					</div>
 				)}
 				<div class="prose">
