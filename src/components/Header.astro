@@ -8,18 +8,22 @@ import HeaderLink from './HeaderLink.astro';
 			<img src="/logo.avif" alt="Ranknitro" class="logo logo-light" width="160" height="40" />
 			<img src="/logo-dark.avif" alt="Ranknitro" class="logo logo-dark" width="160" height="40" />
 		</a>
-		<button type="button" class="burger-btn" id="burger-btn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-links">
-			<span class="burger-line"></span>
-			<span class="burger-line"></span>
-			<span class="burger-line"></span>
+		<button type="button" class="burger-btn" id="burger-btn" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav-dropdown">
+			<span class="burger-inner">
+				<span class="burger-line"></span>
+				<span class="burger-line"></span>
+				<span class="burger-line"></span>
+			</span>
 		</button>
-		<div class="nav-links" id="nav-links">
-			<HeaderLink href="/">Start</HeaderLink>
-			<HeaderLink href="/blog">Blog</HeaderLink>
-			<HeaderLink href="/geo-checkliste">GEO-Checkliste</HeaderLink>
-			<HeaderLink href="/about">Über uns</HeaderLink>
+		<div class="nav-dropdown" id="nav-dropdown">
+			<div class="nav-links" id="nav-links">
+				<HeaderLink href="/">Start</HeaderLink>
+				<HeaderLink href="/blog">Blog</HeaderLink>
+				<HeaderLink href="/geo-checkliste">GEO-Checkliste</HeaderLink>
+				<HeaderLink href="/about">Über uns</HeaderLink>
+			</div>
+			<a href="#geo-audit" class="cta-btn">Free GEO Audit</a>
 		</div>
-		<a href="#geo-audit" class="cta-btn">Free GEO Audit</a>
 	</nav>
 </header>
 
@@ -43,14 +47,14 @@ import HeaderLink from './HeaderLink.astro';
 		checkInvert();
 
 		const burgerBtn = document.getElementById('burger-btn');
-		const navLinks = document.getElementById('nav-links');
-		if (burgerBtn && navLinks) {
+		const navDropdown = document.getElementById('nav-dropdown');
+		if (burgerBtn && navDropdown) {
 			burgerBtn.addEventListener('click', function () {
 				const open = header.classList.toggle('nav-open');
 				burgerBtn.setAttribute('aria-expanded', open);
 				burgerBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
 			});
-			navLinks.querySelectorAll('a').forEach(function (link) {
+			navDropdown.querySelectorAll('a').forEach(function (link) {
 				link.addEventListener('click', function () {
 					header.classList.remove('nav-open');
 					burgerBtn.setAttribute('aria-expanded', 'false');
@@ -111,6 +115,11 @@ import HeaderLink from './HeaderLink.astro';
 	.nav-inverted .logo-dark {
 		display: block;
 	}
+	.nav-dropdown {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
 	.nav-links {
 		display: flex;
 		align-items: center;
@@ -162,9 +171,8 @@ import HeaderLink from './HeaderLink.astro';
 	}
 	.burger-btn {
 		display: none;
-		flex-direction: column;
+		align-items: center;
 		justify-content: center;
-		gap: 5px;
 		width: 44px;
 		height: 44px;
 		padding: 0;
@@ -180,6 +188,13 @@ import HeaderLink from './HeaderLink.astro';
 	.site-header.nav-inverted .burger-btn {
 		color: #FFFFFF;
 		border-color: #FFFFFF;
+	}
+	.burger-inner {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
 	}
 	.burger-line {
 		display: block;
@@ -207,7 +222,7 @@ import HeaderLink from './HeaderLink.astro';
 			order: 2;
 			margin-left: auto;
 		}
-		.nav-links {
+		.nav-dropdown {
 			order: 3;
 			width: 100%;
 			max-height: 0;
@@ -215,13 +230,16 @@ import HeaderLink from './HeaderLink.astro';
 			flex-direction: column;
 			align-items: stretch;
 			gap: 0;
-			justify-content: flex-start;
 			transition: max-height 0.3s ease;
 		}
-		.site-header.nav-open .nav-links {
-			max-height: 280px;
+		.site-header.nav-open .nav-dropdown {
+			max-height: 380px;
+		}
+		.nav-links {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
 			padding-top: 0.5rem;
-			padding-bottom: 0.5rem;
 		}
 		.nav-links a {
 			padding: 0.75rem 1rem;
@@ -230,11 +248,11 @@ import HeaderLink from './HeaderLink.astro';
 		.site-header.nav-inverted .nav-links a {
 			border-bottom-color: rgba(255, 255, 255, 0.2);
 		}
-		.cta-btn {
-			order: 4;
-			margin-left: 0;
-			width: 100%;
+		.nav-dropdown .cta-btn {
+			margin: 0.75rem 1rem 0.5rem;
+			width: auto;
 			text-align: center;
+			align-self: stretch;
 		}
 	}
 </style>
