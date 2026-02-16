@@ -34,8 +34,8 @@ const year = new Date().getFullYear();
 	</div>
 </footer>
 
-<script>
-	document.getElementById('footer-cookie-settings')?.addEventListener('click', (e) => {
+<script is:inline>
+	document.getElementById('footer-cookie-settings')?.addEventListener('click', function(e) {
 		e.preventDefault();
 		if (typeof window !== 'undefined' && window.CookieConsent?.showPreferences) {
 			window.CookieConsent.showPreferences();

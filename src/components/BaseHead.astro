@@ -75,14 +75,17 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 
 <!-- Consent-Logging: Einwilligungsnachweis (Consent-ID + Zeitstempel) an Backend senden -->
 <script define:vars={{ consentLogUrl: CONSENT_LOG_URL }}>
-	if (typeof consentLogUrl === 'string' && consentLogUrl.length > 0 && typeof window !== 'undefined') {
+	if (typeof window !== 'undefined') {
+		var consentLogEndpoint = (typeof consentLogUrl === 'string' && consentLogUrl.length > 0)
+			? consentLogUrl
+			: '/.netlify/functions/consent-log';
 		function logConsent() {
 			try {
-				const cc = window.CookieConsent;
+				var cc = window.CookieConsent;
 				if (!cc || !cc.getCookie || !cc.getUserPreferences) return;
-				const cookie = cc.getCookie();
-				const prefs = cc.getUserPreferences();
-				const payload = {
+				var cookie = cc.getCookie();
+				var prefs = cc.getUserPreferences();
+				var payload = {
 					consentId: cookie.consentId,
 					consentTimestamp: cookie.consentTimestamp,
 					lastConsentTimestamp: cookie.lastConsentTimestamp,
@@ -93,15 +96,27 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 					revision: cookie.revision,
 					url: window.location.href,
 				};
-				fetch(consentLogUrl, {
+				var url = consentLogEndpoint.startsWith('http') ? consentLogEndpoint : (window.location.origin + consentLogEndpoint);
+				fetch(url, {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(payload),
 					keepalive: true,
-				}).catch(() => {});
+				}).catch(function() {});
 			} catch (e) {}
 		}
 		document.addEventListener('cc:onFirstConsent', logConsent);
 		document.addEventListener('cc:onChange', logConsent);
 	}
+	function fillConsentIdInModal() {
+		try {
+			var cc = window.CookieConsent;
+			if (!cc || !cc.getCookie) return;
+			var cookie = cc.getCookie();
+			var id = (cookie && cookie.consentId) ? cookie.consentId : '—';
+			document.querySelectorAll('#cc-main .cc-consent-id, #cc-main .cc-consent-id-pm').forEach(function(el) { el.textContent = id; });
+		} catch (e) {}
+	}
+	document.addEventListener('cc:onModalShow', fillConsentIdInModal);
+	document.addEventListener('cc:onModalReady', fillConsentIdInModal);
 </script>
