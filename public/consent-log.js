@@ -121,6 +121,7 @@
 	function getConsentIdForDisplay() {
 		return getOrCreateConsentId();
 	}
+	try { window.rnGetConsentIdForDisplay = getConsentIdForDisplay; } catch (e) {}
 	var fillConsentIdTimer = null;
 	function fillConsentIdInModal() {
 		if (fillConsentIdTimer) clearTimeout(fillConsentIdTimer);
@@ -156,9 +157,21 @@
 				}
 				setPlaceholders();
 				setTimeout(setPlaceholders, 150);
+				var footerEl = document.getElementById('rn-consent-id');
+				if (footerEl) footerEl.textContent = id;
 			} catch (e) {}
 		}, 50);
 	}
+	document.addEventListener('DOMContentLoaded', function() {
+		setTimeout(function() {
+			var el = document.getElementById('rn-consent-id');
+			if (el) el.textContent = getConsentIdForDisplay() || '\u2014';
+		}, 300);
+		setTimeout(function() {
+			var el = document.getElementById('rn-consent-id');
+			if (el) el.textContent = getConsentIdForDisplay() || '\u2014';
+		}, 2000);
+	});
 	document.addEventListener('cc:onModalShow', fillConsentIdInModal);
 	document.addEventListener('cc:onModalReady', fillConsentIdInModal);
 	document.addEventListener('cc:onConsent', fillConsentIdInModal);
