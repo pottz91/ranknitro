@@ -111,7 +111,14 @@ export default async (req: Request): Promise<Response> => {
 	}
 
 	return new Response(
-		JSON.stringify({ error: 'Configure SUPABASE_* or CONSENT_LOG_FORWARD_URL in Netlify' }),
+		JSON.stringify({
+			error: 'Consent-Log nicht konfiguriert',
+			hint: 'In Netlify: Site configuration → Environment variables. SUPABASE_URL und SUPABASE_SERVICE_ROLE_KEY setzen – Scopes müssen „Functions“ enthalten.',
+			missing: {
+				SUPABASE_URL: !supabaseUrl,
+				SUPABASE_SERVICE_ROLE_KEY: !supabaseKey,
+			},
+		}),
 		{
 			status: 503,
 			headers: { ...corsHeaders, 'Content-Type': 'application/json' },
