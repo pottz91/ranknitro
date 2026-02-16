@@ -105,8 +105,19 @@ const { title, description, image = FallbackImage, type = 'website', publishedTi
 				}).catch(function() {});
 			} catch (e) {}
 		}
-		document.addEventListener('cc:onFirstConsent', logConsent);
-		document.addEventListener('cc:onChange', logConsent);
+		function addListeners() {
+			document.addEventListener('cc:onFirstConsent', logConsent);
+			document.addEventListener('cc:onChange', logConsent);
+			window.addEventListener('cc:onFirstConsent', logConsent);
+			window.addEventListener('cc:onChange', logConsent);
+		}
+		addListeners();
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(function() {
+				var cc = window.CookieConsent;
+				if (cc && cc.validConsent && cc.validConsent()) logConsent();
+			}, 2000);
+		});
 	}
 	function fillConsentIdInModal() {
 		try {
